@@ -10,9 +10,9 @@ import UIKit
 
 extension UIImageView {
     
-    typealias CompletionDownload = (ImageLoadingResult) -> Void
+    public typealias CompletionDownload = (ImageLoadingResult) -> Void
     
-    func dgp_setImage(with url: URL,
+    public func dgp_setImage(with url: URL,
                       placeholder: UIImage? = nil,
                       options: Set<DGPDownloadOption>? = nil,
                       completionHandler: CompletionDownload? = nil) {
