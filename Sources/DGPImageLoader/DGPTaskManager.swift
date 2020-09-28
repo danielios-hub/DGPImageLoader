@@ -20,7 +20,7 @@ class DGPTaskManager: NSObject {
         super.init()
     }
     
-    func addTask(_ task: URLSessionDataTask, url: URL, options: Set<DGPDownloadOption>, completion: DGPImageDownloader.CompletionDownloadHandler?) {
+    func addTask(_ task: URLSessionDataTask, url: URL, options: Set<DGPDownloadOption>, completion: DGPCompletionHandler?) {
         if let currentTask = self.task(for: url) {
             if let completion = completion {
                 currentTask.addCallback(block: completion)

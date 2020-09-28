@@ -16,12 +16,12 @@ class DGPDataTask {
     fileprivate var started = false
     
     struct TaskCallBack {
-        var block: DGPImageDownloader.CompletionDownloadHandler
+        var block: DGPCompletionHandler
     }
     
     var callbacks: [TaskCallBack]
     
-    init(task: URLSessionDataTask, url: URL, options: Set<DGPDownloadOption>, completion: DGPImageDownloader.CompletionDownloadHandler?) {
+    init(task: URLSessionDataTask, url: URL, options: Set<DGPDownloadOption>, completion: DGPCompletionHandler?) {
         self.task = task
         self.url = url
         self.options = options
@@ -92,7 +92,7 @@ class DGPDataTask {
     
     //MARK: - CallBack
     
-    func addCallback(block: @escaping DGPImageDownloader.CompletionDownloadHandler) {
+    func addCallback(block: @escaping DGPCompletionHandler) {
         let callback = TaskCallBack(block: block)
         callbacks.append(callback)
     }

@@ -10,15 +10,20 @@ import UIKit
 
 extension UIImageView {
     
-    public typealias CompletionDownload = (ImageLoadingResult) -> Void
-    
+    /// Download an UIImage and set to image property
+    /// - Parameters:
+    ///   - url: Source from the image
+    ///   - placeholder: Image to be set before downloading the image
+    ///   - options: allow to set cache from disk, memory and resize image
+    ///   - completionHandler: block that will be call with the result of the download
+    ///- Warning: if you provide a completion block, you need to set the image yourself
     public func dgp_setImage(with url: URL,
                       placeholder: UIImage? = nil,
                       options: Set<DGPDownloadOption>? = nil,
-                      completionHandler: CompletionDownload? = nil) {
+                      completionHandler: DGPCompletionHandler? = nil) {
         self.image = placeholder
         
-        DGPImageDownloader.shared.download(url, options: options)  { result in
+        DGPImageDownloader.shared.download(url, options: options)  { [unowned self] result in
             
             if let completionHandler = completionHandler {
                 completionHandler(result)

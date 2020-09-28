@@ -8,11 +8,14 @@
 
 import UIKit
 
-enum DGPError : Error {
+internal enum DGPError : Error {
     case general(String)
     case notAnImage
 }
 
+public typealias DGPCompletionHandler = (ImageLoadingResult) -> Void
+
+/// Result of  downloading an UIImage
 public struct ImageLoadingResult {
 
     /// The downloaded image.
@@ -28,9 +31,7 @@ public struct ImageLoadingResult {
     public let error: Error?
 }
 
-class DGPImageDownloader: NSObject {
-    
-    typealias CompletionDownloadHandler = (ImageLoadingResult) -> Void
+public class DGPImageDownloader: NSObject {
     
     private var session : URLSession!
     private var config: URLSessionConfiguration
@@ -61,7 +62,7 @@ class DGPImageDownloader: NSObject {
         session = URLSession(configuration: config, delegate: manager, delegateQueue: nil)
     }
     
-    func download(_ url: URL, options: Set<DGPDownloadOption>? = nil, completionHandler: CompletionDownloadHandler? = nil) {
+    public func download(_ url: URL, options: Set<DGPDownloadOption>? = nil, completionHandler: DGPCompletionHandler? = nil) {
         queue.async { [weak self] in
             guard let strongSelf = self else {
                 return
@@ -110,7 +111,7 @@ class DGPImageDownloader: NSObject {
         return nil
     }
     
-    func callback(with result: ImageLoadingResult, completionHandler: CompletionDownloadHandler?) {
+    func callback(with result: ImageLoadingResult, completionHandler: DGPCompletionHandler?) {
         if let completionHandler = completionHandler {
             DispatchQueue.main.async {
                 completionHandler(result)
