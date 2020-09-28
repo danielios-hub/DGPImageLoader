@@ -85,7 +85,6 @@ public class DGPImageDownloader: NSObject {
             
             if let image = self.memoryCache.image(for: url,
                                                   targetSize: needToResizeImage(options: options)) {
-                print("image from memory cache")
                 return image
             }
         }
@@ -95,11 +94,9 @@ public class DGPImageDownloader: NSObject {
                 try diskCache.setup()
                 if diskCache.contains(url) {
                     if options.contains(.cacheMemory), let pathFile = diskCache.cacheFilename(url: url) {
-                        print("image from disk-memory")
                         return memoryCache.loadFromDisk(for: url, pathFile: pathFile.path, targetSize: needToResizeImage(options: options))
                     } else if let image = diskCache.image(for: url,
                                                           targetSize: needToResizeImage(options: options)) {
-                        print("image from disk")
                         return image
                     }
                 }

@@ -51,9 +51,7 @@ class DGPImageCacheDisk {
                     // file does not exist
                     do {
                         try fileManager.createDirectory(at: folderURL, withIntermediateDirectories: false)
-                        print("directory created")
                     } catch {
-                        print("error creating directory")
                         throw DiskError.createDirectory(error.localizedDescription)
                     }
                 }
@@ -120,7 +118,6 @@ extension DGPImageCacheDisk: DGPImageCache {
         do {
             try fileManager.contentsOfDirectory(atPath: folderURL.path).forEach { file in
                 let filePath = self.folderURL!.appendingPathComponent(file)
-                print("remove item at \(filePath)")
                 try fileManager.removeItem(atPath: filePath.path)
             }
         } catch {
@@ -143,7 +140,6 @@ extension DGPImageCacheDisk {
         do {
             try removeIfExist(at: url)
             try data.write(to: url)
-            print("data image saved at \(url.absoluteString)")
         } catch {
             print("error: \(error.localizedDescription)")
         }
