@@ -8,18 +8,18 @@
 
 import UIKit
 
-class DGPDataTask {
-    fileprivate var task: URLSessionDataTask
+internal class DGPDataTask {
+    private var task: URLSessionDataTask
     public private(set) var url: URL
-    fileprivate var mutableData: NSMutableData
-    fileprivate var options: Set<DGPDownloadOption>
-    fileprivate var started = false
+    private var mutableData: NSMutableData
+    private var options: Set<DGPDownloadOption>
+    private var started = false
     
     struct TaskCallBack {
         var block: DGPCompletionHandler
     }
     
-    var callbacks: [TaskCallBack]
+    private var callbacks: [TaskCallBack]
     
     init(task: URLSessionDataTask, url: URL, options: Set<DGPDownloadOption>, completion: DGPCompletionHandler?) {
         self.task = task
@@ -70,7 +70,7 @@ class DGPDataTask {
         finish(with: result)
     }
     
-    func saveImage(_ image: UIImage, memory: Bool, disk: Bool) -> UIImage {
+    private func saveImage(_ image: UIImage, memory: Bool, disk: Bool) -> UIImage {
 
         if disk {
             let diskCache = DGPImageDownloader.shared.diskCache

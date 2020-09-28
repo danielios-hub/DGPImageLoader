@@ -45,7 +45,7 @@ public struct DGPImageLoaderConfig {
     }
 }
 
-struct DGPMemoryConfig {
+internal struct DGPMemoryConfig {
     var countLimit: Int
     var memoryLimit: Int
 }

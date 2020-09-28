@@ -67,10 +67,6 @@ public class DGPImageDownloader: NSObject {
    ///   - completionHandler: block that will be call with the result of the download
     public func download(_ url: URL, options: Set<DGPDownloadOption>? = nil, completionHandler: DGPCompletionHandler? = nil) {
         queue.async { [unowned self] in
-//            guard let strongSelf = self else {
-//                return
-//            }
-            
             if let image = self.checkImageInCache(url, options: options) {
                 let result = ImageLoadingResult(image: image, url: url, originalData: nil, error: nil)
                 self.callback(with: result, completionHandler: completionHandler)

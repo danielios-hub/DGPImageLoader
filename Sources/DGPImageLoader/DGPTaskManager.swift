@@ -8,10 +8,10 @@
 
 import Foundation
 
-class DGPTaskManager: NSObject {
-    var tasks : [URL:DGPDataTask]
-    let semaphoreRequest : DispatchSemaphore
-    let lock : NSLock
+internal class DGPTaskManager: NSObject {
+    private var tasks : [URL:DGPDataTask]
+    private let semaphoreRequest : DispatchSemaphore
+    private let lock : NSLock
     
     override init() {
         tasks = [:]
@@ -36,14 +36,14 @@ class DGPTaskManager: NSObject {
         }
     }
     
-    func task(for url: URL) -> DGPDataTask? {
+    private func task(for url: URL) -> DGPDataTask? {
         lock.lock()
         let task = tasks[url]
         lock.unlock()
         return task
     }
     
-    func task(for dataTask: URLSessionTask) -> DGPDataTask? {
+    private func task(for dataTask: URLSessionTask) -> DGPDataTask? {
         guard let url = dataTask.originalRequest?.url else {
             return nil
         }
