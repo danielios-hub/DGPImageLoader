@@ -25,5 +25,8 @@ let package = Package(
         .testTarget(
             name: "DGPImageLoaderTests",
             dependencies: ["DGPImageLoader"]),
+    ],
+    platforms: [
+       .iOS(.v13),
     ]
 )
