@@ -23,7 +23,7 @@ extension UIImageView {
                       completionHandler: DGPCompletionHandler? = nil) {
         self.image = placeholder
         
-        DGPImageDownloader.shared.download(url, options: options)  { [unowned self] result in
+        DGPImageDownloader.shared.download(url, options: options)  { [weak self] result in
             
             if let completionHandler = completionHandler {
                 completionHandler(result)
@@ -35,7 +35,7 @@ extension UIImageView {
                 return 
             }
             
-            self.image = img
+            self?.image = img
         }
     }
 }
